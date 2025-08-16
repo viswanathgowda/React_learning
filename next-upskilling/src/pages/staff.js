@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/Atoms/button";
 import Staff from "@/components/Staff";
 
@@ -6,6 +6,13 @@ export default function staff() {
   const [count, setCount] = useState(0);
   const [users, setUsers] = useState([]);
   const approvedRef = useRef(null);
+  const [a, setA] = useState("");
+  const [b, setB] = useState("");
+  const [fnlAdnRslt, setFnlAdnRslt] = useState();
+
+  useEffect(() => {
+    console.log("log the page redering");
+  });
 
   const handleCounter = () => {
     setCount((prev) => prev + 1);
@@ -30,6 +37,16 @@ export default function staff() {
   const handleUseRef = () => {
     const inputVal = approvedRef.current.value;
     console.log("typed values", inputVal);
+  };
+
+  const calcAddition = (a, b) => {
+    return Number(a) + Number(b);
+  };
+
+  const memoizedVl = useMemo(() => calcAddition(a, b), [a, b]);
+
+  const handleUseMemo = () => {
+    setFnlAdnRslt(memoizedVl);
   };
 
   return (
@@ -66,6 +83,32 @@ export default function staff() {
           >
             use Ref{" "}
           </Button>
+        </div>
+
+        <div className="flex flex-col justify-center">
+          <input
+            type="number"
+            placeholder="enter number"
+            className="border-2 py-2 px-3 my-2"
+            value={a}
+            onChange={(e) => setA(e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="enter number "
+            className="border-2 py-2 px-3 my-2"
+            value={b}
+            onChange={(e) => setB(e.target.value)}
+          />
+          <Button
+            style={
+              "bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 focus: ring-blue-400 cursor-pointer"
+            }
+            evnt={handleUseMemo}
+          >
+            Use Memo - calculate
+          </Button>
+          <p>final Result: {fnlAdnRslt}</p>
         </div>
       </div>
     </>
