@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/Atoms/button";
 import Staff from "@/components/Staff";
+import Child from "@/components/Child";
 
 export default function staff() {
   const [count, setCount] = useState(0);
@@ -49,6 +50,10 @@ export default function staff() {
     setFnlAdnRslt(memoizedVl);
   };
 
+  const handleChild = useCallback(() => {
+    console.log("child usecallback called!");
+  }, []);
+
   return (
     <>
       <div className="flex flex-col justify-center items-center">
@@ -84,6 +89,7 @@ export default function staff() {
             use Ref{" "}
           </Button>
         </div>
+        <hr className=" my-2 w-full" />
 
         <div className="flex flex-col justify-center">
           <input
@@ -109,6 +115,11 @@ export default function staff() {
             Use Memo - calculate
           </Button>
           <p>final Result: {fnlAdnRslt}</p>
+        </div>
+        <hr className=" my-2 w-full" />
+
+        <div className="flex flex-col">
+          <Child chidEvnt={handleChild}></Child>
         </div>
       </div>
     </>
