@@ -15,11 +15,20 @@ const geistMono = Geist_Mono({
 export default function Home() {
   const route = useRouter();
 
-  const handleStaffNav = () => {
-    route.push("/staff");
-  };
-  const handleRegister = () => {
-    route.push("/register");
+  const btns = [
+    { btn: "staff", id: "staff" },
+    { btn: "register", id: "register" },
+    { btn: "context", id: "context" },
+  ];
+
+  // const handleStaffNav = () => {
+  //   route.push("/staff");
+  // };
+  // const handleRegister = () => {
+  //   route.push("/register");
+  // };
+  const hanldeNavigation = (b) => {
+    route.push(`/${b.btn}`);
   };
 
   return (
@@ -28,22 +37,17 @@ export default function Home() {
     >
       <p>this is home page for application....</p>
       <div className="flex flex-col gap-3">
-        <Button
-          style={
-            "bg-blue-500 py-2 px-3 hover:bg-blue-600 focus:ring-blue-400 rounded-lg cursor-pointer "
-          }
-          evnt={handleStaffNav}
-        >
-          Go to Staff{" "}
-        </Button>
-        <Button
-          style={
-            "bg-blue-500 py-2 px-3 hover:bg-blue-600 focus:ring-blue-400 rounded-lg cursor-pointer "
-          }
-          evnt={handleRegister}
-        >
-          Go to register{" "}
-        </Button>
+        {btns.map((b) => (
+          <Button
+            key={b.id}
+            style={
+              "bg-blue-500 py-2 px-3 hover:bg-blue-600 focus:ring-blue-400 rounded-lg cursor-pointer "
+            }
+            evnt={() => hanldeNavigation(b)}
+          >
+            Go to {b.btn}{" "}
+          </Button>
+        ))}
       </div>
     </div>
   );
